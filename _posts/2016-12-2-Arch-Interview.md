@@ -31,7 +31,7 @@ Some of the criteria I base my evaluation on follow.
 - Think about failure scenarios / reliability / fault tolerance / disaster recovery
 - Think about security implications / secure / sensitive data and are conversant in security primitives such as encryption (of data at rest and in motion), tokens, authentication, authorization, message integrity, cookies, signing etc
 - Think about audit and debugging use cases
-- Consider what sort SLAs clients might need
+- Consider what sort of SLAs clients might need
 - Able to talk about tradeoffs between the availability and consistency of information
 - Able to do capacity / performance estimation
 - Have an idea of how they would scale if needed
