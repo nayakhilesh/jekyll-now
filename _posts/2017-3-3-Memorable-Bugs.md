@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Interesting Bugs
+title: Memorable Bugs
 ---
 
-Some of the more interesting bugs I've encountered over the course of my career:
+Some of the more memorable bugs I've encountered over the course of my career thus far:
 
 ## Process.java
 We had a java application that would periodically use the java Process API to ssh into a remote server, list files and retrieve some of them.
