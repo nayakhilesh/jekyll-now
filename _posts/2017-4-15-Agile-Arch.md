@@ -5,7 +5,7 @@ title: "Paper Summary: How Much Up-Front? A Grounded Theory of Agile Architectur
 
 I came across the paper in the title of this post while searching for material on the phrase ‘just enough design up-front’ that I heard from a colleague. The paper can be found [here](https://ecs.victoria.ac.nz/foswiki/pub/Main/TechnicalReportSeries/ECSTR15-01.pdf).
 It was published in 2015 and hence is fairly recent. I found it particularly interesting since I’ve been seeing similar factors in play at my day job and similar coping mechanisms.
-I highly recommend reading the paper in it’s entirety as well since it contains many interesting anecdotal quotes.
+I highly recommend reading the paper in it’s entirety as well since it contains many interesting anecdotal quotes from fellow engineers / managers that one may be able to relate to!
 
 # Summary:
 
