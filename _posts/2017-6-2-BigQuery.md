@@ -45,7 +45,7 @@ So it actually scans ALL the data and doesn't use any indexes.
         - Columnar storage (BQ does this)
         - Parallel disk IO
             - Traditional OLAP does this using proprietary hardware / specialized storage units which may also get expensive
-            - BQ does this by using Google's datacenter infrastructure as a part of GCP
+            - BQ does this by using Google's datacenter infrastructure as a part of GCP - the query is sent to a tree of (potentially 1000s of) machines that co-ordinate and do the work (in parallel) and then collect the results and return to the client
 
 ## Getting data into BQ:
 
@@ -77,9 +77,11 @@ Paper: [Dremel: Interactive Analysis of Web-Scale Datasets](https://static.googl
 - It uses column striped storage with a nested data model to query data in-situ (in place, unlike [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load))
 - An algorithm for encoding this nested ([protobuf](https://en.wikipedia.org/wiki/Protocol_Buffers) serialized) data in a columnar format is provided
 - Has a SQL-like query language which also allows peeking at paths into records
-- Tree based query distribution (similar to Info Retrieval / Search problems!) with query rewriting and leaves talking to storage layer (e.g. [GFS](https://en.wikipedia.org/wiki/Google_File_System)) / local storage
-- Query dispatcher does prioritization and load balancing. It also reschedules processing taking too long - query leaves do the processing. There are often more tablets to be processed than ‘slots’ (a slot is a thread running on a leaf node)
+- Tree based query distribution (similar to Info Retrieval / Search problems!) with query rewriting and leaves talking to storage layer (e.g. [GFS](https://en.wikipedia.org/wiki/Google_File_System)) / local storage. The query leaves do the processing.
+- A query dispatcher:
+    - Does prioritization and load balancing. There are often more tablets to be processed than ‘slots’ (a slot is a thread running on a leaf node)
+    - Reschedules processing taking too long (referred to above as the 'stragglers')
 - Each node has an internal execution tree / plan with other optimizations
-- Has a threshold for min % of tablets to be scanned before returning a result - this is very useful [The Tail at Scale](http://www.cs.duke.edu/courses/cps296.4/fall13/838-CloudPapers/dean_longtail.pdf) - the sample queries given in the paper finish processing 99% of tablets under 1-2s
-- The paper details a whole bunch of experimental improvements showcasing the effect of design choices made and emphasizing Dremel’s interactivity
+- Has a threshold for the min % of tablets to be scanned before returning a result - this is very useful since at this scale tail latencies tend to dominate ([The Tail at Scale](http://www.cs.duke.edu/courses/cps296.4/fall13/838-CloudPapers/dean_longtail.pdf)) - the sample queries given in the paper finish processing 99% of tablets under 1-2s
+- The paper details a whole bunch of experimental improvements showcasing the positive effect of design choices made and emphasizing Dremel’s interactivity
 
