@@ -5,7 +5,7 @@ title: "BigQuery: Google style OLAP for your business"
 
 I've come across [BigQuery](https://cloud.google.com/bigquery/) (BQ) at work a few times recently - mostly in the context of our data engineering team enabling data analysts to ask questions of our data. I've also seen a few cases of teams thinking of leveraging it in some job oriented operational tasks due to its low latency querying capabilities. Needless to say this piqued my interest and I got hold of 2 papers by Google talking about the secret sauce behind their tech. One is a about BQ itself as available through [Google Cloud Platform](https://cloud.google.com/) (GCP); the other is about the internal Google tool [Dremel](https://en.wikipedia.org/wiki/Dremel_(software)) that BQ is based on.
 
-# BigQuery
+## BigQuery
 
 White Paper: [An Inside Look at Google BigQuery](https://cloud.google.com/files/BigQueryTechnicalWP.pdf)
 
@@ -15,7 +15,7 @@ BigQuery allows users to run ad-hoc SQL-like queries against extremely large dat
 
 So it actually scans ALL the data and doesn't use any indexes.
 
-## It does this by:
+### It does this by:
 
 - Using columnar storage - individual records / rows are split into their constituent columns and these columns are stored on different storage volumes.
     - This minimizes traffic - only the columns needed are read
@@ -23,12 +23,12 @@ So it actually scans ALL the data and doesn't use any indexes.
     - However this is worse for updates - which is fine since Dremel is meant for read-only [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) / [BI](https://en.wikipedia.org/wiki/Business_intelligence) use cases
 - Tree architecture - It uses a parallel, tree-based, distributed scatter-gather approach to execute queries and retrieve the data
 
-## Comparison to [MapReduce](https://en.wikipedia.org/wiki/MapReduce) (MR):
+### Comparison to [MapReduce](https://en.wikipedia.org/wiki/MapReduce) (MR):
 
 - Unlike MR, Dremel is meant for interactive analysis (ad-hoc querying)
 - MR is meant for large scale batch processing (complex [unstructured] data and processing logic - e.g. Machine Learning / data mining)
 
-## Datawarehouse solutions for OLAP / BI typically fall into the following buckets:
+### Datawarehouse solutions for OLAP / BI typically fall into the following buckets:
 
 - R(elational)OLAP
     - Uses indexes that need to be pre-defined for all potential ways in the which the data might be queried
@@ -47,12 +47,12 @@ So it actually scans ALL the data and doesn't use any indexes.
             - Traditional OLAP does this using proprietary hardware / specialized storage units which may also get expensive
             - BQ does this by using Google's datacenter infrastructure as a part of GCP - the query is sent to a tree of (potentially 1000s of) machines that co-ordinate and do the work (in parallel) and then collect the results and return to the client
 
-## Getting data into BQ:
+### Getting data into BQ:
 
 - Upload data to [GCS](https://cloud.google.com/storage/)
 - Import files into BQ using a command-line tool, Web UI or API
 
-## Punchline(s) from the paper (emphasis mine):
+### Punchline(s) from the paper (emphasis mine):
 
 > "BigQuery requires ***no capacity planning, provisioning, 24x7 monitoring or operations, nor does it require manual security patch updates***. You simply upload datasets to Google Cloud Storage of your account, import them into BigQuery, and let Google’s experts manage the rest. This ***significantly reduces your total cost of ownership (TCO)*** for a data handling solution."
 
@@ -65,7 +65,7 @@ Earlier in the paper they mention:
 > "This “wikipedia” table holds all the change history records on Wikipedia’s
 article content and consists of ***314 millions of rows – that’s 35.7GB***."
 
-# Dremel
+## Dremel
 
 Paper: [Dremel: Interactive Analysis of Web-Scale Datasets](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36632.pdf)
 
